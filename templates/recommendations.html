@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Recommendations</h1>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <p>Sentiment: {{ sentiment }}</p>
+        <p>Genre: {{ genre }}</p>
+        <h2>Recommended Songs:</h2>
+        <ul>
+            {% if recommendations %}
+                {% for track in recommendations %}
+                    <li>
+                        {{ track.name }} by {{ track.artist }}
+                        <br>
+                        <iframe src="https://open.spotify.com/embed/track/{{ track.uri.split(':')[2] }}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li>No recommendations available for this genre.</li>
+            {% endif %}
+        </ul>
+        <a href="/">Go back</a>
+    </div>
+</body>
+</html>
