@@ -35,12 +35,12 @@ def get_recommendations_by_genre(token, genre, limit=5):
     url = "https://api.spotify.com/v1/recommendations"
     headers = get_auth_header(token)
     params = {
-        "seed_genres": genre.lower(),  # Spotify genres are typically lowercase
+        "seed_genres": genre.lower(),
         "limit": limit
     }
 
     response = get(url, headers=headers, params=params)
-    print(f"API Response for genre '{genre}': {response.json()}")  # Debug statement
+    print(f"API Response for genre '{genre}': {response.json()}")
     if response.status_code == 200:
         json_response = response.json()
         tracks = json_response.get("tracks", [])
@@ -62,7 +62,7 @@ def get_recommendations():
     sentiment = TextBlob(text).sentiment.polarity
     sentiment_category = getEmotion(sentiment)
     music_genre = map_sentiment_to_genre(sentiment_category)
-    print(f"Sentiment: {sentiment_category}, Genre: {music_genre}")  # Debug statement
+    print(f"Sentiment: {sentiment_category}, Genre: {music_genre}")
     recommendations = get_recommendations_by_genre(token, music_genre)
     return render_template('recommendations.html', sentiment=sentiment_category, genre=music_genre, recommendations=recommendations)
 
